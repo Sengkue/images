@@ -57,11 +57,12 @@
     </div>
 
     <script>
-        function loadImages(folder, extension, containerId) {
+        function loadImages(folder, extension, containerId, baseUrl) {
             const container = document.getElementById(containerId);
             for (let i = 1; i <= 100; i++) {  // Adjust the upper limit based on your needs
                 const fileName = i.toString().padStart(2, '0') + '.' + extension;
                 const filePath = folder + '/' + fileName;
+                const linkUrl = baseUrl + '/' + folder + '/' + fileName;
 
                 const img = new Image();
                 img.src = filePath;
@@ -70,6 +71,10 @@
                     const imageItem = document.createElement('div');
                     imageItem.className = 'image-item';
 
+                    const linkTag = document.createElement('a');
+                    linkTag.href = linkUrl;
+                    linkTag.target = '_blank';  // Opens the link in a new tab
+
                     const imgTag = document.createElement('img');
                     imgTag.src = filePath;
                     imgTag.alt = fileName;
@@ -77,7 +82,8 @@
                     const pTag = document.createElement('p');
                     pTag.textContent = filePath;
 
-                    imageItem.appendChild(imgTag);
+                    linkTag.appendChild(imgTag);
+                    imageItem.appendChild(linkTag);
                     imageItem.appendChild(pTag);
                     container.appendChild(imageItem);
                 };
@@ -85,9 +91,9 @@
         }
 
         // Load PNG images
-        loadImages('png', 'png', 'png-container');
+        loadImages('png', 'png', 'png-container', 'https://sengkue.github.io/images');
         // Load JPG images
-        loadImages('jpg', 'jpg', 'jpg-container');
+        loadImages('jpg', 'jpg', 'jpg-container', 'https://sengkue.github.io/images');
     </script>
 </body>
 </html>
