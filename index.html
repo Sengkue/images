@@ -15,8 +15,24 @@
             text-align: center;
             color: #333;
         }
+        nav {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        nav button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        nav button:hover {
+            background-color: #0056b3;
+        }
         .image-container {
-            display: flex;
+            display: none;
             flex-wrap: wrap;
             justify-content: center;
             gap: 20px;
@@ -46,12 +62,15 @@
 <body>
     <h1>Image Online</h1>
 
-    <h2>PNG Images</h2>
+    <nav>
+        <button onclick="showImages('png-container')">PNG Images</button>
+        <button onclick="showImages('jpg-container')">JPG Images</button>
+    </nav>
+
     <div class="image-container" id="png-container">
         <!-- PNG images will be loaded here -->
     </div>
 
-    <h2>JPG Images</h2>
     <div class="image-container" id="jpg-container">
         <!-- JPG images will be loaded here -->
     </div>
@@ -90,10 +109,20 @@
             }
         }
 
+        function showImages(containerId) {
+            document.getElementById('png-container').style.display = 'none';
+            document.getElementById('jpg-container').style.display = 'none';
+
+            document.getElementById(containerId).style.display = 'flex';
+        }
+
         // Load PNG images
         loadImages('png', 'png', 'png-container', 'https://sengkue.github.io/images');
         // Load JPG images
         loadImages('jpg', 'jpg', 'jpg-container', 'https://sengkue.github.io/images');
+
+        // Show PNG images by default
+        showImages('png-container');
     </script>
 </body>
 </html>
