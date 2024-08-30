@@ -47,31 +47,47 @@
     <h1>Image Online</h1>
 
     <h2>PNG Images</h2>
-    <div class="image-container">
-        <!-- List of PNG Images -->
-        <div class="image-item">
-            <img src="png/01.png" alt="01.png">
-            <p>png/01.png</p>
-        </div>
-        <div class="image-item">
-            <img src="png/02.png" alt="02.png">
-            <p>png/02.png</p>
-        </div>
-        <!-- Add more PNG images as needed -->
+    <div class="image-container" id="png-container">
+        <!-- PNG images will be loaded here -->
     </div>
 
     <h2>JPG Images</h2>
-    <div class="image-container">
-        <!-- List of JPG Images -->
-        <div class="image-item">
-            <img src="jpg/01.jpg" alt="01.jpg">
-            <p>jpg/01.jpg</p>
-        </div>
-        <div class="image-item">
-            <img src="jpg/02.jpg" alt="02.jpg">
-            <p>jpg/02.jpg</p>
-        </div>
-        <!-- Add more JPG images as needed -->
+    <div class="image-container" id="jpg-container">
+        <!-- JPG images will be loaded here -->
     </div>
+
+    <script>
+        function loadImages(folder, extension, containerId) {
+            const container = document.getElementById(containerId);
+            for (let i = 1; i <= 100; i++) {  // Adjust the upper limit based on your needs
+                const fileName = i.toString().padStart(2, '0') + '.' + extension;
+                const filePath = folder + '/' + fileName;
+
+                const img = new Image();
+                img.src = filePath;
+
+                img.onload = function() {  // Only add the image if it exists
+                    const imageItem = document.createElement('div');
+                    imageItem.className = 'image-item';
+
+                    const imgTag = document.createElement('img');
+                    imgTag.src = filePath;
+                    imgTag.alt = fileName;
+
+                    const pTag = document.createElement('p');
+                    pTag.textContent = filePath;
+
+                    imageItem.appendChild(imgTag);
+                    imageItem.appendChild(pTag);
+                    container.appendChild(imageItem);
+                };
+            }
+        }
+
+        // Load PNG images
+        loadImages('png', 'png', 'png-container');
+        // Load JPG images
+        loadImages('jpg', 'jpg', 'jpg-container');
+    </script>
 </body>
 </html>
